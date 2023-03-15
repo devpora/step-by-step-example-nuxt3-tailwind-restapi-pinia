@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -8,6 +8,9 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.2.3"
+    "@nuxtjs/tailwindcss": "^6.5.0",
+    "autoprefixer": "^10.4.14",
+    "nuxt": "^3.2.3",
+    "postcss": "^8.4.21"
   }
 }
