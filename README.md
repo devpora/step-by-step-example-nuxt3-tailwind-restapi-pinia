@@ -22,7 +22,15 @@ yarn build # - build for production
 yarn preview # - locally preview production build
 ```
 
+## Changes
+- Fixed Header
+- Footer anchored to the bottom of the page if the content is short
+- Added Tailwind classes for light/dark background and text color
+- "switching" between light/dark mode that affects components on the page, not only the given Header component (adding/removing classList)
+- function getFullYear for the current year in Footer
+
 ## Release notes
+- v003 - add Header, Footer and switch light/dark mode
 - v002 - add tailwindcss
 - v001 - add nuxt 3
 
@@ -47,7 +55,15 @@ yarn build # - zostavenie pre produkciu
 yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
+## Zmeny
+- Pevný Header
+- Footer ukotvený na koniec stránky ak je krátky obsah
+- Pridané Tailwind classy pre svetlé/tmavé pozadie a farbu textu
+- "prepínanie" medzi svetlým/tmavým režimom, ktoré ovplyvňuje komponenty na stránke, nielen danú komponentu Header (pridanie/odstránenie classList)
+- funkcia getFullYear pre aktuálny rok vo Footri
+
 ## Poznámky k vydaniu
+- v003 - pridaný Header, Footer a prepínač na svetlý/tmavý režim
 - v002 - pridaný tailwindcss
 - v001 - pridaný nuxt 3
 
