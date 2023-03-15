@@ -23,10 +23,12 @@ yarn preview # - locally preview production build
 ```
 
 ## Release notes
+- v002 - add tailwindcss
 - v001 - add nuxt 3
 
 ## Other:
 [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction)
+[Tailwind documentation](https://tailwindcss.com/docs/installation)
 
 
 ---
@@ -46,7 +48,9 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
 ## Poznámky k vydaniu
+- v002 - pridaný tailwindcss
 - v001 - pridaný nuxt 3
 
 ## Ostatné:
 [Nuxt 3 dokumentácia](https://nuxt.com/docs/getting-started/introduction)
+[Tailwind dokumentácia](https://tailwindcss.com/docs/installation)
