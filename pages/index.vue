@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const isDark = ref<boolean>(false)
+import { MoonIcon, SunIcon } from '@heroicons/vue/24/outline'
+
 const changeDark = () => {
   isDark.value = !isDark.value;
   if (isDark.value) {
@@ -16,9 +18,10 @@ const changeDark = () => {
       <div class="container mx-auto flex justify-between items-center px-4 text-black dark:text-white">
         <h1 class="text-2xl font-bold">Nuxt3</h1>
         <span class="text-black-700 text-red-400 dark:text-green-400">Mode: {{isDark ? 'Dark'  : 'Light'}}</span>
-        <button class="hover:text-orange-700 hover:dark:text-orange-200" @click="changeDark">
-          {{isDark ? 'Light'  : 'Dark'}}
-        </button>
+        <div @click="changeDark">
+          <MoonIcon v-if="isDark" class="h-6 w-6 text-blue-500"/>
+          <SunIcon v-else class="h-6 w-6 text-blue-500"/>
+        </div>
       </div>
     </header>
     <main class="container mx-auto px-4 py-8 flex-grow flex items-center justify-center pt-20">
