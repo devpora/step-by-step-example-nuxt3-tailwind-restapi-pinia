@@ -23,9 +23,10 @@ yarn preview # - locally preview production build
 ```
 
 ## Changes
-- Changed class so dark mode with long content works properly
+- Added icons from the Heroicons pack. The word Dark/Light in the header has been changed to icons.
 
 ## Release notes
+- v005 - heroicons package
 - v004 - modified darkmode for scrolling
 - v003 - add Header, Footer and switch light/dark mode
 - v002 - add tailwindcss
@@ -53,9 +54,10 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
 ## Zmeny
-- Zmenená trieda, aby tmavý režim fungoval správne aj s dlhým obsahom
+- Pridané ikony z balíka Heroicons. Slovo Dark/Light v hlavičke bolo zmenené za ikony.
 
 ## Poznámky k vydaniu
+- v005 - pridaný balík Heroicons
 - v004 - upravený darkmode pre scrolovanie
 - v003 - pridaný Header, Footer a prepínač na svetlý/tmavý režim
 - v002 - pridaný tailwindcss
