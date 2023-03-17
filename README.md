@@ -23,9 +23,11 @@ yarn preview # - locally preview production build
 ```
 
 ## Changes
-- Added icons from the Heroicons pack. The word Dark/Light in the header has been changed to icons.
+- Create default layout in layouts folder
+- Create Header and Footer in components
 
 ## Release notes
+- v006 - default layout with Header/Footer components
 - v005 - heroicons package
 - v004 - modified darkmode for scrolling
 - v003 - add Header, Footer and switch light/dark mode
@@ -54,9 +56,11 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
 ## Zmeny
-- Pridané ikony z balíka Heroicons. Slovo Dark/Light v hlavičke bolo zmenené za ikony.
+- Pridaný default layout
+- Vytvorené componenty pre Header a Footer
 
 ## Poznámky k vydaniu
+- v006 - layout a Header/Footer komponenty
 - v005 - pridaný balík Heroicons
 - v004 - upravený darkmode pre scrolovanie
 - v003 - pridaný Header, Footer a prepínač na svetlý/tmavý režim
