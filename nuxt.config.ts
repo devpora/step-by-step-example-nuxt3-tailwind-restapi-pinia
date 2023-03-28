@@ -17,8 +17,20 @@ export default defineNuxtConfig({
         lazy: true,
         langDir: `locales`,
         defaultLocale: 'en',
+        strategy: 'prefix_except_default',
         vueI18n: {
             fallbackLocale: 'en',
         },
-    }
+        customRoutes: 'config',
+        pages: {
+            'auth/login': {
+                en: '/auth/login',
+                sk: '/auth/prihlasenie',
+            },
+            'auth/register': {
+                en: '/auth/register',
+                sk: '/auth/registracia',
+            },
+        }
+    },
 })

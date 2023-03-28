@@ -23,11 +23,13 @@ yarn preview # - locally preview production build
 ```
 
 ## Changes
-- Added i18n package to change languages
-- Sample translations in the "locales" directory
-- Language switcher
+- Added login and registration pages (only sample without API connection)
+- Modified index.vue
+- Modified translations
+- Theme for pages was generated using https://devdojo.com/ and modified as needed
 
 ## Release notes
+- v008 - login and register page
 - v007 - added language
 - v006 - default layout with Header/Footer components
 - v005 - heroicons package
@@ -63,11 +65,13 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
 ## Zmeny
-- Pridaný balík i18n na zmenu jazykov
-- Vzorové preklady v adresári "locales"
-- Prepínač jazykov
+- Pridané stránky pre prihlásenie a registráciu (len vzor bez napojenia na api)
+- Upravený index.vue
+- Upravené preklady
+- Základ témy je vygenerovaný v https://devdojo.com/ a upravený podľa potreby
 
 ## Poznámky k vydaniu
+- v008 - pridané login stránky
 - v007 - pridané jazykové verzie
 - v006 - layout a Header/Footer komponenty
 - v005 - pridaný balík Heroicons
