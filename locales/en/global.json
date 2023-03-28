@@ -1,0 +1,16 @@
+{
+  "address": "Address",
+  "chocolate": "Chocolate",
+  "company": "Company",
+  "contacts": "Contacts",
+  "croissant": "Croissant",
+  "email": "Email",
+  "emailAddress": "Email address",
+  "jujubes": "Jujubes",
+  "name": "Name",
+  "password": "Password",
+  "phone": "Phone",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "social": "Social"
+}
