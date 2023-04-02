@@ -9,6 +9,7 @@
   "jujubes": "Cukríky",
   "name": "Meno",
   "password": "Heslo",
+  "passwordConfirmation": "Potvrdenie hesla",
   "phone": "Telefón",
   "signIn": "Prihlásiť",
   "signUp": "Registrovať",

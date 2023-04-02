@@ -9,6 +9,7 @@
   "jujubes": "Jujubes",
   "name": "Name",
   "password": "Password",
+  "passwordConfirmation": "Password Confirmation",
   "phone": "Phone",
   "signIn": "Sign In",
   "signUp": "Sign Up",

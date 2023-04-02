@@ -12,6 +12,7 @@ Všetky dáta sú v samostatných vetvách
 
 ## Development
 ```bash
+cp .env.example .env # - copying the env and modifying the url to the api if necessary
 yarn install # - install dependecies
 yarn dev # - start development server on http://localhost:3000
 ```
@@ -23,12 +24,16 @@ yarn preview # - locally preview production build
 ```
 
 ## Changes
-- Added login and registration pages (only sample without API connection)
-- Modified index.vue
-- Modified translations
-- Theme for pages was generated using https://devdojo.com/ and modified as needed
+- Added .env.example with connection to free external API
+- Added data from .env to nuxt.config.js
+- Added repository with auth addresses on rest api
+- Added store for user data
+- Defined types for individual responses in the types directory
+- Added pinia and types packages
+- Ability to test login, logout and registration. Test login admin@devpora.com with HardPass password
 
 ## Release notes
+- v009 - connect to RestApi
 - v008 - login and register page
 - v007 - added language
 - v006 - default layout with Header/Footer components
@@ -54,6 +59,7 @@ yarn preview # - locally preview production build
 
 ## Vývoj
 ```bash
+cp .env.example .env # - prekopírovanie env a v prípade potreby úprava url na api
 yarn install # - inštalácia balíkov
 yarn dev # - spustenie servera na http://localhost:3000
 ```
@@ -65,12 +71,16 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
 ## Zmeny
-- Pridané stránky pre prihlásenie a registráciu (len vzor bez napojenia na api)
-- Upravený index.vue
-- Upravené preklady
-- Základ témy je vygenerovaný v https://devdojo.com/ a upravený podľa potreby
+- Pridané .env.example s napojením na bezplatné externé API
+- Pridané údaje z .env do nuxt.config.js
+- Pridaný repozitár s auth adresami na rest api
+- Pridaný store na uloženie údajov o používateľovi
+- Definované typy pre jednotlivé odpovede v adresári types
+- Pridané balíky pinia a types
+- Možnosť otestovať prihlásenie, odhlásenie a registráciu. Test login admin@devpora.com s heslom HardPass
 
 ## Poznámky k vydaniu
+- v009 - pripojenie rest api
 - v008 - pridané login stránky
 - v007 - pridané jazykové verzie
 - v006 - layout a Header/Footer komponenty
@@ -81,8 +91,6 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 - v001 - pridaný nuxt 3
 - 
 ## sometime in the future
-- prihlásenie cez externé api
-- pinia
 - role
 
 ## Ostatné:

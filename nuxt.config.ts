@@ -1,12 +1,22 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    modules: ['@nuxtjs/tailwindcss', '@nuxtjs/i18n'],
+    ssr: true,
+    modules: [
+        '@nuxtjs/tailwindcss',
+        '@nuxtjs/i18n',
+        '@pinia/nuxt'],
     layout: 'default',
     css: ['~/assets/css/main.css'],
     postcss: {
         plugins: {
             tailwindcss: {},
             autoprefixer: {},
+        },
+    },
+    runtimeConfig: {
+        public: {
+            BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
+            BASE_BE_URL: process.env.BASE_BE_URL || 'http://localhost:8000'
         },
     },
     i18n: {
