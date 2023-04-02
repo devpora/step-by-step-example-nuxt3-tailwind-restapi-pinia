@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { Bars3Icon, LanguageIcon, MoonIcon, SunIcon } from '@heroicons/vue/24/outline'
+import { useAuthStore } from '~/store/user'
 
 const isDark = ref<boolean>(false)
 const showLanguages = ref<boolean>(false)
 const showMobileMenu  = ref<boolean>(false)
+const localePath = useLocalePath()
+const authStore = useAuthStore()
+const { locales, setLocale } = useI18n()
 
 const changeDark = () => {
   isDark.value = !isDark.value;
@@ -14,11 +18,17 @@ const changeDark = () => {
   }
 }
 
-const { locales, setLocale } = useI18n()
-const localePath = useLocalePath()
-
 const onChangeLocale = async (locale: any) => {
   await setLocale(locale.code)
+}
+
+
+const isAuthenticated = computed(() => {
+  return authStore.isLoggedIn
+})
+
+const logout = async () => {
+  await authStore.logout()
 }
 </script>
 <template>
@@ -56,14 +66,26 @@ const onChangeLocale = async (locale: any) => {
                 <MoonIcon v-if="isDark" class="h-6 w-6 text-blue-500" />
                 <SunIcon v-else class="h-6 w-6 text-blue-500" />
               </div>
-              <nuxt-link :to="localePath('/auth/login')" class="h-9 w-28 text-gray-600 bg-white border-2 border-white flex items-center justify-center
-                text-center rounded-lg text-lg font-normal mr-6">
+              <nuxt-link
+                v-if="!isAuthenticated"
+                :to="localePath('/auth/login')"
+                class="h-9 w-28 text-gray-600 bg-white border-2 border-white flex items-center justify-center text-center rounded-lg text-lg font-normal mr-6"
+              >
                 {{ $t('global.signIn') }}
               </nuxt-link>
-              <nuxt-link :to="localePath('/auth/register')" class="h-9 w-28 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900 border-2 flex
-                items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mr-auto">
+              <nuxt-link
+                v-if="!isAuthenticated"
+                :to="localePath('/auth/register')"
+                class="h-9 w-28 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900 border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mr-auto"
+              >
                 {{ $t('global.signUp') }}
               </nuxt-link>
+              <div
+                v-if="isAuthenticated"
+                class="h-9 w-28 text-white bg-blue-700 hover:bg-blue-900 hover:border-blue-900 border-2 flex items-center justify-center text-center border-blue-700 rounded-lg text-lg font-normal mr-auto"
+              >
+                <button @click="logout">Logout</button>
+              </div>
             </div>
             <div class="md:hidden flex items-center">
               <div class="outline-none mobile-menu-button" @click="showMobileMenu = !showMobileMenu">

@@ -1,6 +1,47 @@
+<script setup lang="ts">
+import { useAuthStore } from '~/store/user'
+
+const name = ref('')
+const email = ref('')
+const password = ref('')
+const password_confirmation = ref('')
+const error = ref<{ message: null, inputs: Record<string, string[]> }>({ message: null, inputs: {} })
+const authStore = useAuthStore()
+
+const register = async () => {
+  try {
+    await authStore.register(name.value, email.value, password.value, password_confirmation.value)
+    if (authStore.isAuthenticated) {
+      error.value = {
+        message: null,
+        inputs: {}
+      }
+    }
+  } catch (e: any) {
+    error.value = {
+      message: e.response._data.message ?? null,
+      inputs: e.response._data.errors ?? {}
+    }
+  }
+
+}
+
+const user = computed(() => {
+  return {
+    isLoggedIn: authStore.isLoggedIn,
+    email: authStore.user.email,
+    id: authStore.user.id,
+  }
+})
+
+
+function hasError(fieldName: string) {
+  return !!(error.value && error.value.inputs && error.value.inputs[fieldName]);
+}
+</script>
 <template>
   <NuxtLayout>
-    <section class="w-full bg-white tails-selected-element" contenteditable="true">
+    <section class="w-full bg-white tails-selected-element">
 
       <div class="mx-auto max-w-7xl">
         <div class="flex flex-col lg:flex-row">
@@ -11,9 +52,25 @@
                   <p class="mb-2 font-medium text-gray-700 uppercase">Cupcake Ipsum</p>
                   <h2 class="text-5xl font-bold text-gray-900 xl:text-6xl">Cupcake ipsum dolor sit amet biscuit...</h2>
                 </div>
-                <p class="text-2xl text-gray-700">Cupcake ipsum dolor sit amet biscuit gummi bears tootsie roll jelly.</p>
-                <nuxt-link to="/auth/login" class="inline-block px-8 py-5 text-xl font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease" data-primary="blue-600" data-rounded="rounded-lg">Get Started Today</nuxt-link>
-              </div>
+                <p
+                    class="text-xl md:pr-16"
+                    :class="{ 'text-green-600': user.isLoggedIn, 'text-red-600': !user.isLoggedIn }"
+                >
+                  Is Logged: {{ user.isLoggedIn ? 'true' : 'false' }}
+                </p>
+                <p class="text-xl text-gray-600 md:pr-16">
+                  User ID: {{ user.id }}
+                </p>
+                <p class="text-xl text-gray-600 md:pr-16">
+                  User email: {{ user.email }}
+                </p>
+                <h3 class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl">
+                  Errors from api
+                </h3>
+                <p class="text-xl text-gray-600 md:pr-16">
+                  {{error}}
+                </p>
+                </div>
             </div>
           </div>
 
@@ -26,29 +83,89 @@
                 </nuxt-link>
               </p>
               <div class="relative w-full mt-10 space-y-8">
-                <div class="relative">
-                  <label class="font-medium text-gray-900">
-                    {{ $t('global.name') }}
-                  </label>
-                  <input type="text" class="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" data-primary="blue-600" data-rounded="rounded-lg" :placeholder="$t('auth.placeholder.enterYourName')">
-                </div>
-                <div class="relative">
-                  <label class="font-medium text-gray-900">
-                    {{ $t('global.email') }}
-                  </label>
-                  <input type="text" class="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" data-primary="blue-600" data-rounded="rounded-lg" :placeholder="$t('auth.placeholder.enterYourEmailAddress')">
-                </div>
-                <div class="relative">
-                  <label class="font-medium text-gray-900">
-                    {{ $t('global.password') }}
-                  </label>
-                  <input type="password" class="block w-full px-4 py-4 mt-2 text-xl placeholder-gray-400 bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-600 focus:ring-opacity-50" data-primary="blue-600" data-rounded="rounded-lg" :placeholder="$t('global.password')">
-                </div>
-                <div class="relative">
-                  <nuxt-link :to="localePath('/auth/login')" class="inline-block w-full px-5 py-4 text-lg font-medium text-center text-white transition duration-200 bg-blue-600 rounded-lg hover:bg-blue-700 ease" data-primary="blue-600" data-rounded="rounded-lg">
-                    {{ $t('auth.createAccount') }}
-                  </nuxt-link>
+                <form @submit.prevent="register">
+                  <div class="pb-4">
+                    <input
+                        v-model="name"
+                        type="text"
+                        name="name"
+                        id="name"
+                        class="block w-full px-4 py-3 mb-2 border border-2 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+                        :class="{ 'border-red-800 focus:ring focus:ring-red-500': hasError('name') }"
+                        data-primary="blue-500"
+                        :placeholder="$t('global.name')"
+                    >
+                    <div
+                        v-if="hasError('name')"
+                        v-for="(e, index) in error.inputs.name"
+                        :key="index"
+                        class="text-red-600"
+                    >{{ e }}</div>
                   </div>
+                  <div class="pb-4">
+                    <input
+                        v-model="email"
+                        type="text"
+                        name="email"
+                        id="email"
+                        class="block w-full px-4 py-3 mb-2 border border-2 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+                        :class="{ 'border-red-800 focus:ring focus:ring-red-500': hasError('email') }"
+                        data-primary="blue-500"
+                        :placeholder="$t('global.emailAddress')"
+                    >
+                    <div
+                        v-if="hasError('email')"
+                        v-for="(e, index) in error.inputs.email"
+                        :key="index"
+                        class="text-red-600"
+                    >{{ e }}</div>
+                  </div>
+                  <div class="pb-4">
+                    <input
+                        v-model="password"
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="block w-full px-4 py-3 mb-2 border border-2 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+                        :class="{ 'border-red-800 focus:ring focus:ring-red-500': hasError('password') }"
+                        data-primary="blue-500"
+                        :placeholder="$t('global.password')"
+                    >
+                    <div
+                        v-if="hasError('password')"
+                        v-for="(e, index) in error.inputs.password"
+                        :key="index"
+                        class="text-red-600"
+                    >{{ e }}</div>
+                  </div>
+                  <div class="pb-4">
+                    <input
+                        v-model="password_confirmation"
+                        type="password"
+                        name="password_confirmation"
+                        id="password_confirmation"
+                        class="block w-full px-4 py-3 mb-2 border border-2 rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+                        :class="{ 'border-red-800 focus:ring focus:ring-red-500': hasError('password_confirmation') }"
+                        data-primary="blue-500"
+                        :placeholder="$t('global.passwordConfirmation')"
+                    >
+                    <div
+                        v-if="hasError('password_confirmation')"
+                        v-for="(e, index) in error.inputs.password_confirmation"
+                        :key="index"
+                        class="text-red-600"
+                    >{{ e }}</div>
+                  </div>
+                  <div class="block">
+                    <button
+                        :disabled="user.isLoggedIn"
+                        type="submit" class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg"
+                        :class="{ 'bg-gray-200': user.isLoggedIn }"
+                    >
+                      {{ $t('auth.createAccount') }}
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
