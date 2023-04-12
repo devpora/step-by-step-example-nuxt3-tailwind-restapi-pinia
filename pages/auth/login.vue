@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['is-guest'],
+})
 import { useAuthStore } from '~/store/user'
 
 const email = ref('')
@@ -27,6 +30,7 @@ const login = async () => {
 const user = computed(() => {
   return {
     isLoggedIn: authStore.isLoggedIn,
+    isAdmin: authStore.isAdmin,
     email: authStore.user.email,
     id: authStore.user.id,
   }
@@ -53,6 +57,12 @@ function hasError(fieldName: string) {
               :class="{ 'text-green-600': user.isLoggedIn, 'text-red-600': !user.isLoggedIn }"
             >
               Is Logged: {{ user.isLoggedIn ? 'true' : 'false' }}
+            </p>
+            <p
+              class="text-xl md:pr-16"
+              :class="{ 'text-green-600': user.isLoggedIn, 'text-red-600': !user.isLoggedIn }"
+            >
+              Is Admin: {{ user.isAdmin ? 'true' : 'false' }}
             </p>
             <p class="text-xl text-gray-600 md:pr-16">
               User ID: {{ user.id }}

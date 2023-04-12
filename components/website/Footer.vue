@@ -1,6 +1,6 @@
 <template>
-  <div class="text-gray-800 dark:text-gray-500">
-    <div class="w-full bg-white dark:bg-gray-900 pt-16 pr-4 pb-0 pl-4 mt-0 mr-auto mb-0 ml-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl
+  <div class="text-gray-800 dark:text-gray-500 bg-white dark:bg-gray-900">
+    <div class="w-full pt-16 pr-4 pb-0 pl-4 mt-0 mr-auto mb-0 ml-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl
     md:px-24 lg:px-8">
     <div>
       <div class="mt-0 mr-0 mb-8 ml-0 grid gap-10 row-gap-6 sm:grid-cols-2 lg:grid-cols-4">

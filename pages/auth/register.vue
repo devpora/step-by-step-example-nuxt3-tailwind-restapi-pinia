@@ -1,4 +1,7 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['is-guest'],
+})
 import { useAuthStore } from '~/store/user'
 
 const name = ref('')
