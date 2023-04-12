@@ -4,7 +4,8 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/i18n',
-        '@pinia/nuxt'],
+        '@pinia/nuxt'
+    ],
     layout: 'default',
     css: ['~/assets/css/main.css'],
     postcss: {
@@ -13,6 +14,11 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
+    middleware: [
+        'isUser',
+        'isAdmin',
+        'isGuest'
+    ],
     runtimeConfig: {
         public: {
             BASE_URL: process.env.BASE_URL || 'http://localhost:3000',

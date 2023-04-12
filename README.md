@@ -2,9 +2,22 @@
 
 ## (English)
 All data is in separate branches
+**Basic info:**
+- nuxt3 and tailwind
+- two layouts (website and dashboard)
+- login and register from external Rest API
+- middleware is-admin, is-user and is-guest
+
 [Guide](#en)
+
 ## (Slovensky)
 Všetky dáta sú v samostatných vetvách
+**Základné info:**
+- nuxt3 a tailwind
+- dva layouty (web a admin)
+- prihlásenie a registrácia cez externé Rest API
+- middleware is-admin, is-user a is-guest
+
 [Návod](#sk)
 
 ---
@@ -24,15 +37,16 @@ yarn preview # - locally preview production build
 ```
 
 ## Changes
-- Added .env.example with connection to free external API
-- Added data from .env to nuxt.config.js
-- Added repository with auth addresses on rest api
-- Added store for user data
-- Defined types for individual responses in the types directory
-- Added pinia and types packages
-- Ability to test login, logout and registration. Test login admin@devpora.com with HardPass password
+- Added pages /admin and /user 
+- Added admin layout for dashboard (/admin) from https://github.com/wobsoriano/v-dashboard (without functionality, only for demonstration)
+- Currently two layouts are used. One for the website and another for the admin section 
+- Header and Footer were moved and index uses components for clarity 
+- Added middleware is-admin. Page "/admin" is only accessible to a logged-in user who is an admin (id 1)
+- Added middleware is-user. Page "/user" is only accessible to a logged-in user 
+- Added middleware is-guest. Page "/auth/login" and "/auth/register" is only accessible to a guest user
 
 ## Release notes
+- v010 - added admin section
 - v009 - connect to RestApi
 - v008 - login and register page
 - v007 - added language
@@ -71,15 +85,16 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ```
 
 ## Zmeny
-- Pridané .env.example s napojením na bezplatné externé API
-- Pridané údaje z .env do nuxt.config.js
-- Pridaný repozitár s auth adresami na rest api
-- Pridaný store na uloženie údajov o používateľovi
-- Definované typy pre jednotlivé odpovede v adresári types
-- Pridané balíky pinia a types
-- Možnosť otestovať prihlásenie, odhlásenie a registráciu. Test login admin@devpora.com s heslom HardPass
+- Pridaná stránka /admin a /user
+- Pridaný admin layout pre dashboard (/admin) z https://github.com/wobsoriano/v-dashboard (bez funkčnsoti, len ukážka)
+- Aktuálne sa používajú dva layouty. Iný pre web a iný pre admin sekciu
+- Header a Footer boli presunuté a index používa komponenty kvôli prehľadnosti
+- Pridaný middleware is-admin. Stránka "/admin" je dostupná len pre prihláseného používateľa, ktorý je admin (id 1)
+- Pridaný middleware is-user. Stránka "/user" je dostupná len pre prihláseného používateľa
+- Pridaný middleware is-guest. Stránka "/auth/login" a "/auth/register" je dostupná len pre neprihláseného používateľa
 
 ## Poznámky k vydaniu
+- v010 - pridaná admin sekcia
 - v009 - pripojenie rest api
 - v008 - pridané login stránky
 - v007 - pridané jazykové verzie

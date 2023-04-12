@@ -4,6 +4,7 @@ import { login, register, logout } from '~/services/AuthService'
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         isLoggedIn: false,
+        isAdmin: false,
         user: {
             token: null as string | null,
             email: null as string | null,
@@ -26,6 +27,7 @@ export const useAuthStore = defineStore('auth', {
                 this.user.token = access_token
                 this.user.email = userData.email
                 this.user.id = userData.id
+                this.isAdmin = userData.id === 1
 
             } catch (error) {
                 throw error
@@ -49,6 +51,7 @@ export const useAuthStore = defineStore('auth', {
                 await logout()
 
                 this.isLoggedIn = false
+                this.isAdmin = false
                 this.user.token = null
                 this.user.email = null
                 this.user.id = null
