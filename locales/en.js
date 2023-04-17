@@ -9,5 +9,5 @@ export default {
   footer,
   global,
   header,
-  index
+  index,
 }

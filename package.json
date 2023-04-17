@@ -5,15 +5,25 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
+    "lintfix": "yarn lint:js --fix"
   },
   "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@nuxtjs/eslint-module": "^4.0.2",
     "@nuxtjs/i18n": "^8.0.0-beta.10",
     "@nuxtjs/tailwindcss": "^6.5.0",
     "@types/node": "^18.15.11",
     "autoprefixer": "^10.4.14",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.11.0",
     "nuxt": "^3.2.3",
-    "postcss": "^8.4.21"
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.16",
