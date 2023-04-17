@@ -2,63 +2,61 @@ import { defineStore } from 'pinia'
 import { login, register, logout } from '~/services/AuthService'
 
 export const useAuthStore = defineStore('auth', {
-    state: () => ({
-        isLoggedIn: false,
-        isAdmin: false,
-        user: {
-            token: null as string | null,
-            email: null as string | null,
-            id: null as number | null,
-        }
-    }),
-
-    getters: {
-        isAuthenticated(): boolean {
-            return !!this.user.token
-        },
+  state: () => ({
+    isLoggedIn: false,
+    isAdmin: false,
+    user: {
+      token: null as string | null,
+      email: null as string | null,
+      id: null as number | null,
     },
+  }),
 
-    actions: {
-        async login(email: string, password: string) {
-            try {
-                const { access_token, userData } = await login(email, password)
+  getters: {
+    isAuthenticated(): boolean {
+      return !!this.user.token
+    },
+  },
 
-                this.isLoggedIn = true
-                this.user.token = access_token
-                this.user.email = userData.email
-                this.user.id = userData.id
-                this.isAdmin = userData.id === 1
+  actions: {
+    async login(email: string, password: string) {
+      const { access_token: accessToken, userData } = await login(
+        email,
+        password,
+      )
 
-            } catch (error) {
-                throw error
-            }
-        },
-        async register(name: string, email: string, password: string, password_confirmation: string) {
-            try {
-                const { access_token, userData } = await register(name, email, password, password_confirmation)
+      this.isLoggedIn = true
+      this.user.token = accessToken
+      this.user.email = userData.email
+      this.user.id = userData.id
+      this.isAdmin = userData.id === 1
+    },
+    async register(
+      name: string,
+      email: string,
+      password: string,
+      passwordConfirmation: string,
+    ) {
+      const { access_token: accessToken, userData } = await register(
+        name,
+        email,
+        password,
+        passwordConfirmation,
+      )
 
-                this.isLoggedIn = true
-                this.user.token = access_token
-                this.user.email = userData.email
-                this.user.id = userData.id
+      this.isLoggedIn = true
+      this.user.token = accessToken
+      this.user.email = userData.email
+      this.user.id = userData.id
+    },
+    async logout() {
+      await logout()
 
-            } catch (error) {
-                throw error
-            }
-        },
-        async logout() {
-            try {
-                await logout()
-
-                this.isLoggedIn = false
-                this.isAdmin = false
-                this.user.token = null
-                this.user.email = null
-                this.user.id = null
-
-            } catch (error) {
-                throw error
-            }
-        },
-    }
+      this.isLoggedIn = false
+      this.isAdmin = false
+      this.user.token = null
+      this.user.email = null
+      this.user.id = null
+    },
+  },
 })
