@@ -6,13 +6,16 @@ All data is in separate branches
 
 **Basic info:**
 
-- nuxt3 and tailwind
-- two layouts (website and dashboard)
-- login and register from external Rest API
-- middleware is-admin, is-user and is-guest
-- eslint, prettier
+- 🚧 nuxt3 and tailwind
+- 🎨 two layouts (website and dashboard)
+- 🌍 i18n
+- 🌜 dark/light
+- 🌐 login and register from external Rest API
+- 🔑 middleware is-admin, is-user and is-guest
+- 🔧 eslint, prettier
+- 🔒 local ssl
 
-[Guide](#en)
+[Guide](#en)📖 
 
 ## (Slovensky)
 
@@ -20,13 +23,16 @@ Všetky dáta sú v samostatných vetvách
 
 **Základné info:**
 
-- nuxt3 a tailwind
-- dva layouty (web a admin)
-- prihlásenie a registrácia cez externé Rest API
-- middleware is-admin, is-user a is-guest
-- eslint, prettier
+- 🚧 nuxt3 a tailwind
+- 🎨 dva layouty (web a admin)
+- 🌍 i18n
+- 🌜 dark/light
+- 🌐 prihlásenie a registrácia cez externé Rest API
+- 🔑 middleware is-admin, is-user a is-guest
+- 🔧 eslint, prettier
+- 🔒 lokálne ssl
 
-[Návod](#sk)
+[Návod](#sk)📖 
 
 ---
 
@@ -38,6 +44,17 @@ Všetky dáta sú v samostatných vetvách
 cp .env.example .env # - copying the env and modifying the url to the api if necessary
 yarn install # - install dependecies
 yarn dev # - start development server on http://localhost:3000
+
+yarn lint:js # - Show errors and warnings
+yarn lintfix # - Fix
+```
+
+### https for localhost
+```bash
+npm install -g mkcert local-ssl-proxy # - Install globally (not for the project) mkcert and ssl proxy
+mkcert create-ca # - Create root cert
+mkcert create-cert --key server-key.pem --cert server-cert.pem # - Create cert for page
+yarn ssl # - start development https server on https://localhost:3443
 ```
 
 ## Production
@@ -49,18 +66,11 @@ yarn preview # - locally preview production build
 
 ## Changes
 
-- Added eslint + prettier
-- Show errors and warnings:
-```bash
-yarn lint:js
-```
-- Fix
-```bash
-yarn lintfix
-```
+- Added support for creating a self-signed certificate and running local https
 
 ## Release notes
 
+- v012 - local ssl
 - v011 - eslint + prettier
 - v010 - added admin section
 - v009 - connect to RestApi
@@ -83,6 +93,7 @@ yarn lintfix
 
 [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction)
 [Tailwind documentation](https://tailwindcss.com/docs/installation)
+[Api DevPora](https://laravel-rest-api-with-passport-postman.devpora.com/)
 
 ---
 
@@ -94,6 +105,17 @@ yarn lintfix
 cp .env.example .env # - prekopírovanie env a v prípade potreby úprava url na api
 yarn install # - inštalácia balíkov
 yarn dev # - spustenie servera na http://localhost:3000
+
+yarn lint:js # - Zobrazenie chýb
+yarn lintfix # - Oprava chýb
+```
+
+### lokálne https
+```bash
+npm install -g mkcert local-ssl-proxy # - Nainštalujeme globálne (nie pre projekt) mkcert a ssl proxy
+mkcert create-ca # - Vytvoríme root certifikát
+mkcert create-cert --key server-key.pem --cert server-cert.pem # - Vytvoríme certifikát
+yarn ssl # - spustenie https servera na https://localhost:3443
 ```
 
 ## Produkcia
@@ -105,18 +127,11 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 
 ## Zmeny
 
-- Pridaný eslint + prettier
-- Zobrazenie chýb:
-```bash
-yarn lint:js
-```
-- Oprava chýb
-```bash
-yarn lintfix
-```
+- Pridaná podpora na vytvorenie self-signed certifikátu a spustenie lokálneho https
 
 ## Poznámky k vydaniu
 
+- v012 - lokálne ssl
 - v011 - eslint + prettier
 - v010 - pridaná admin sekcia
 - v009 - pripojenie rest api
@@ -137,3 +152,4 @@ yarn lintfix
 
 [Nuxt 3 dokumentácia](https://nuxt.com/docs/getting-started/introduction)
 [Tailwind dokumentácia](https://tailwindcss.com/docs/installation)
+[Api DevPora](https://laravel-rest-api-with-passport-postman.devpora.com/)
