@@ -64,6 +64,13 @@ const logout = async () => {
               {{ $t('global.home') }}
             </nuxt-link>
             <nuxt-link
+              :to="localePath('/icons')"
+              class="inline-block px-4 py-2 mx-2 font-medium text-left text-indigo-700 md:text-white md:px-0 lg:mx-3 md:text-center"
+              data-primary="indigo-700"
+            >
+              {{ $t('global.icons') }}
+            </nuxt-link>
+            <nuxt-link
               :to="localePath('/user')"
               class="inline-block px-0 px-4 py-2 mx-2 font-medium text-left md:px-0 hover:text-indigo-800 md:hover:text-white lg:mx-3 md:text-center"
               data-primary="indigo-800"

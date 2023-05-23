@@ -7,8 +7,12 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/eslint-module',
   ],
+  plugins: [{ src: '~/plugins/fontawesome.js', mode: 'client' }],
   layout: 'default',
-  css: ['~/assets/css/main.css'],
+  css: [
+    '~/assets/css/main.css',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},
