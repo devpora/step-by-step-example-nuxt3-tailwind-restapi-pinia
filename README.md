@@ -66,10 +66,12 @@ yarn preview # - locally preview production build
 
 ## Changes
 
-- Added support for creating a self-signed certificate and running local https
+- Added fontawesome icons
+- /icons page for Heroicons and Fontawesome import
 
 ## Release notes
 
+- v013 - fontawesome
 - v012 - local ssl
 - v011 - eslint + prettier
 - v010 - added admin section
@@ -127,10 +129,12 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 
 ## Zmeny
 
-- Pridaná podpora na vytvorenie self-signed certifikátu a spustenie lokálneho https
+- Pridané fontawesome ikony
+- /icons na ukážku Heroicons a Fontawesome
 
 ## Poznámky k vydaniu
 
+- v013 - fontawesome
 - v012 - lokálne ssl
 - v011 - eslint + prettier
 - v010 - pridaná admin sekcia
