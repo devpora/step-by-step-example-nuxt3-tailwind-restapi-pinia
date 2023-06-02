@@ -19,6 +19,19 @@ export async function login(
   })
 }
 
+export async function loginOauth(
+  provider: string,
+  oAuthCode: string,
+): Promise<LoginResponse> {
+  const baseBeUrl = useRuntimeConfig().public.BASE_BE_URL
+  const url = `${baseBeUrl}/oauth/login`
+
+  return await $fetch<LoginResponse>(url, {
+    method: 'POST',
+    body: JSON.stringify({ provider, oAuthCode }),
+  })
+}
+
 export async function register(
   name: string,
   email: string,
