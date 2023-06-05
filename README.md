@@ -10,7 +10,7 @@ All data is in separate branches
 - 🎨 two layouts (website and dashboard)
 - 🌍 i18n
 - 🌜 dark/light
-- 🌐 login and register from external Rest API
+- 🌐 login and register from external Rest API + oAuth Google, GitHub and GitLab
 - 🔑 middleware is-admin, is-user and is-guest
 - 🔧 eslint, prettier
 - 🔒 local ssl
@@ -27,7 +27,7 @@ Všetky dáta sú v samostatných vetvách
 - 🎨 dva layouty (web a admin)
 - 🌍 i18n
 - 🌜 dark/light
-- 🌐 prihlásenie a registrácia cez externé Rest API
+- 🌐 prihlásenie a registrácia cez externé Rest API + oAuth Google, GitHub a GitLab
 - 🔑 middleware is-admin, is-user a is-guest
 - 🔧 eslint, prettier
 - 🔒 lokálne ssl
@@ -66,11 +66,11 @@ yarn preview # - locally preview production build
 
 ## Changes
 
-- Added fontawesome icons
-- /icons page for Heroicons and Fontawesome import
+- Add oAuth login from (google, github, gitlab)
 
 ## Release notes
 
+- v014 - oAuth
 - v013 - fontawesome
 - v012 - local ssl
 - v011 - eslint + prettier
@@ -87,14 +87,15 @@ yarn preview # - locally preview production build
 
 ## sometime in the future
 
-- login with external api
 - pinia
 - roles
 
 ## Other:
 
 [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction)
+
 [Tailwind documentation](https://tailwindcss.com/docs/installation)
+
 [Api DevPora](https://laravel-rest-api-with-passport-postman.devpora.com/)
 
 ---
@@ -129,11 +130,11 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 
 ## Zmeny
 
-- Pridané fontawesome ikony
-- /icons na ukážku Heroicons a Fontawesome
+- Pridané prihlasovanie cez oAuth (Google, GitHub, GitLab)
 
 ## Poznámky k vydaniu
 
+- v014 - oAuth
 - v013 - fontawesome
 - v012 - lokálne ssl
 - v011 - eslint + prettier
@@ -155,5 +156,7 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 ## Ostatné:
 
 [Nuxt 3 dokumentácia](https://nuxt.com/docs/getting-started/introduction)
+
 [Tailwind dokumentácia](https://tailwindcss.com/docs/installation)
+
 [Api DevPora](https://laravel-rest-api-with-passport-postman.devpora.com/)

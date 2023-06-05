@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { login, register, logout } from '~/services/AuthService'
+import { login, register, logout, loginOauth } from '~/services/AuthService'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -23,6 +23,18 @@ export const useAuthStore = defineStore('auth', {
       const { access_token: accessToken, userData } = await login(
         email,
         password,
+      )
+
+      this.isLoggedIn = true
+      this.user.token = accessToken
+      this.user.email = userData.email
+      this.user.id = userData.id
+      this.isAdmin = userData.id === 1
+    },
+    async loginOauth(provider: string, oAuthCode: string) {
+      const { access_token: accessToken, userData } = await loginOauth(
+        provider,
+        oAuthCode,
       )
 
       this.isLoggedIn = true

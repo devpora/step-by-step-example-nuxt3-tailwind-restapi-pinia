@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '~/store/user'
+import { getProviderUrl } from '~/utils/auth'
 
 definePageMeta({
   middleware: ['is-guest'],
@@ -28,6 +29,15 @@ const login = async () => {
       inputs: e.response._data.errors ?? {},
     }
   }
+}
+
+const signInWithProvider = (providerName: string) => {
+  const runtimeConfig = useRuntimeConfig()
+  const baseUrl = runtimeConfig.public.BASE_URL
+  const clientId =
+    runtimeConfig.public[`${providerName.toUpperCase()}_CLIENT_ID`]
+
+  window.location.href = getProviderUrl(baseUrl, providerName, clientId)
 }
 
 const user = computed(() => {
@@ -100,9 +110,31 @@ function hasError(fieldName: string) {
               data-rounded="rounded-lg"
               data-rounded-max="rounded-full"
             >
-              <h3 class="mb-6 text-2xl font-medium text-center">
+              <h3 class="text-2xl font-medium text-center">
                 {{ $t('auth.signInToAccount') }}
               </h3>
+              <div class="row justify-between w-full px-4 py-4">
+                <div class="flex justify-between w-full">
+                  <font-awesome-icon
+                    :icon="['fab', 'google']"
+                    size="xl"
+                    class="cursor-pointer"
+                    @click="signInWithProvider('google')"
+                  />
+                  <font-awesome-icon
+                    :icon="['fab', 'github']"
+                    size="xl"
+                    class="cursor-pointer"
+                    @click="signInWithProvider('github')"
+                  />
+                  <font-awesome-icon
+                    :icon="['fab', 'gitlab']"
+                    size="xl"
+                    class="cursor-pointer"
+                    @click="signInWithProvider('gitlab')"
+                  />
+                </div>
+              </div>
               <form @submit.prevent="login">
                 <div class="pb-4">
                   <input
