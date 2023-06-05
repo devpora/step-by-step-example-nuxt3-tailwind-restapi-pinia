@@ -4,6 +4,7 @@ export function getProviderUrl(
   baseUrl: string,
   providerId: string,
   clientId: string,
+  challenge: string | null,
 ) {
   const provider = providers.find((provider) => provider.id === providerId)
   let url = ''
@@ -13,7 +14,7 @@ export function getProviderUrl(
   } else if (provider?.id === 'github') {
     url = `${provider.oauthUrl}?client_id=${clientId}&redirect_uri=${baseUrl}${provider.redirectUri}&scope=read:user,user:email`
   } else if (provider?.id === 'gitlab') {
-    url = `${provider.oauthUrl}?client_id=${clientId}&redirect_uri=${baseUrl}${provider.redirectUri}&response_type=code&scope=read_user&code_challenge=23zSB7POjLkNtXQ-u_l3eAX_6VfZPqQxf72xVe2P3VA&code_challenge_method=S256`
+    url = `${provider.oauthUrl}?client_id=${clientId}&redirect_uri=${baseUrl}${provider.redirectUri}&response_type=code&scope=read_user&code_challenge=${challenge}&code_challenge_method=S256`
   }
 
   return url
