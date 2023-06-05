@@ -36,8 +36,15 @@ const signInWithProvider = (providerName: string) => {
   const baseUrl = runtimeConfig.public.BASE_URL
   const clientId =
     runtimeConfig.public[`${providerName.toUpperCase()}_CLIENT_ID`]
+  const challenge =
+    runtimeConfig.public[`${providerName.toUpperCase()}_CHALLENGE`] || null
 
-  window.location.href = getProviderUrl(baseUrl, providerName, clientId)
+  window.location.href = getProviderUrl(
+    baseUrl,
+    providerName,
+    clientId,
+    challenge,
+  )
 }
 
 const user = computed(() => {
