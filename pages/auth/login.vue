@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useToast } from 'vue-toastification'
 import { useAuthStore } from '~/store/user'
 import { getProviderUrl } from '~/utils/auth'
 
@@ -15,6 +16,7 @@ const error = ref<{ message: null; inputs: Record<string, string[]> }>({
 const authStore = useAuthStore()
 
 const login = async () => {
+  const toast = useToast()
   try {
     await authStore.login(email.value, password.value)
     if (authStore.isAuthenticated) {
@@ -22,12 +24,19 @@ const login = async () => {
         message: null,
         inputs: {},
       }
+      toast.success('Login Successful')
+      return navigateTo('/user')
     }
   } catch (e: any) {
     error.value = {
       message: e.response._data.message ?? null,
       inputs: e.response._data.errors ?? {},
     }
+    toast.error(
+      e.response._data.message === undefined
+        ? e.message
+        : e.response._data.message,
+    )
   }
 }
 

@@ -29,6 +29,9 @@ export async function loginOauth(
   return await $fetch<LoginResponse>(url, {
     method: 'POST',
     body: JSON.stringify({ provider, oAuthCode }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
 }
 
