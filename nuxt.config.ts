@@ -7,7 +7,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/eslint-module',
   ],
-  plugins: [{ src: '~/plugins/fontawesome.js', mode: 'client' }],
+  plugins: [
+    { src: '~/plugins/fontawesome.js', mode: 'client' },
+    { src: '~/plugins/toastification.js', mode: 'client' },
+  ],
   layout: 'default',
   css: [
     '~/assets/css/main.css',

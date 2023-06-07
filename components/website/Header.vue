@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { MoonIcon, SunIcon } from '@heroicons/vue/24/outline'
+import { useToast } from 'vue-toastification'
 import { useAuthStore } from '~/store/user'
 
 const isDark = ref<boolean>(false)
@@ -25,7 +26,19 @@ const isAuthenticated = computed(() => {
 })
 
 const logout = async () => {
-  await authStore.logout()
+  const toast = useToast()
+  try {
+    await authStore.logout()
+    if (!authStore.isAuthenticated) {
+      toast.success('Logout Successful')
+    }
+  } catch (e: any) {
+    toast.error(
+      e.response._data.message === undefined
+        ? e.message
+        : e.response._data.message,
+    )
+  }
 }
 </script>
 <template>
@@ -69,6 +82,13 @@ const logout = async () => {
               data-primary="indigo-700"
             >
               {{ $t('global.icons') }}
+            </nuxt-link>
+            <nuxt-link
+              :to="localePath('/notify')"
+              class="inline-block px-4 py-2 mx-2 font-medium text-left text-indigo-700 md:text-white md:px-0 lg:mx-3 md:text-center"
+              data-primary="indigo-700"
+            >
+              {{ $t('global.notify') }}
             </nuxt-link>
             <nuxt-link
               :to="localePath('/user')"

@@ -66,10 +66,12 @@ yarn preview # - locally preview production build
 
 ## Changes
 
-- Add oAuth login from (google, github, gitlab)
+- Added notifications for login/logout
+- Added /notify page
 
 ## Release notes
 
+- v015 - notification
 - v014 - oAuth
 - v013 - fontawesome
 - v012 - local ssl
@@ -130,10 +132,12 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 
 ## Zmeny
 
-- Pridané prihlasovanie cez oAuth (Google, GitHub, GitLab)
+- Pridané notifikácie pri prihláseni/odhlásení
+- Pridaná stránka /notify
 
 ## Poznámky k vydaniu
 
+- v015 - notifikácie
 - v014 - oAuth
 - v013 - fontawesome
 - v012 - lokálne ssl
