@@ -1,16 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuthStore } from '~/store/user'
+import { useToast } from 'vue-toastification'
 import { useSidebar } from '@/hooks/useSidebar'
 
 const dropdownOpen = ref(false)
 
-const authStore = useAuthStore()
 const { isOpen } = useSidebar()
 
-const logout = async () => {
-  await authStore.logout()
-  return navigateTo('/auth/login')
+const { logout } = useAuth()
+const onLogoutClick = async () => {
+  const toast = useToast()
+  try {
+    await logout()
+    toast.success('Logout Successful')
+
+    return navigateTo('/auth/login')
+  } catch (e: any) {
+    toast.error(
+      e.response._data.message === undefined
+        ? e.message
+        : e.response._data.message,
+    )
+  }
 }
 </script>
 
@@ -120,7 +130,7 @@ const logout = async () => {
             >
             <div
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white cursor-pointer"
-              @click="logout"
+              @click="onLogoutClick"
             >
               Log out
             </div>

@@ -3,13 +3,13 @@ import {
   RegisterResponse,
   LogoutResponse,
 } from '~/types/services/AuthService'
-import { useAuthStore } from '~/store/user'
 
-export async function login(
+export async function loginFromApi(
   email: string,
   password: string,
 ): Promise<LoginResponse> {
   const baseBeUrl = useRuntimeConfig().public.BASE_BE_URL
+
   return await $fetch<LoginResponse>(`${baseBeUrl}/auth/login`, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
@@ -19,7 +19,7 @@ export async function login(
   })
 }
 
-export async function loginOauth(
+export async function loginOAuthFromApi(
   provider: string,
   oAuthCode: string,
 ): Promise<LoginResponse> {
@@ -35,13 +35,14 @@ export async function loginOauth(
   })
 }
 
-export async function register(
+export async function registerFromApi(
   name: string,
   email: string,
   password: string,
   passwordConfirmation: string,
 ): Promise<RegisterResponse> {
   const baseBeUrl = useRuntimeConfig().public.BASE_BE_URL
+
   return await $fetch<RegisterResponse>(`${baseBeUrl}/auth/register`, {
     method: 'POST',
     body: JSON.stringify({
@@ -55,10 +56,9 @@ export async function register(
     },
   })
 }
-export async function logout(): Promise<LogoutResponse> {
+export async function logoutFromApi(token: string): Promise<LogoutResponse> {
   const baseBeUrl = useRuntimeConfig().public.BASE_BE_URL
-  const authStore = useAuthStore()
-  const token = authStore.user.token
+
   return await $fetch<LogoutResponse>(`${baseBeUrl}/auth/logout`, {
     method: 'POST',
     headers: {
