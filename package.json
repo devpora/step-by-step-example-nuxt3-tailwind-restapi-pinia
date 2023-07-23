@@ -35,6 +35,8 @@
     "@heroicons/vue": "^2.0.16",
     "@nuxt/types": "^2.16.3",
     "@pinia/nuxt": "^0.4.7",
+    "cookie-parser": "^1.4.6",
+    "cookie-signature": "^1.2.1",
     "pinia": "^2.0.33",
     "vue-toastification": "^2.0.0-rc.5"
   }

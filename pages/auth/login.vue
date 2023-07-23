@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useToast } from 'vue-toastification'
-import { useAuthStore } from '~/store/user'
 import { getProviderUrl } from '~/utils/auth'
 
 definePageMeta({
@@ -13,29 +12,30 @@ const error = ref<{ message: null; inputs: Record<string, string[]> }>({
   message: null,
   inputs: {},
 })
-const authStore = useAuthStore()
 
-const login = async () => {
+const { login } = useAuth()
+const loggedUser = useAuthUser()
+const isAdmin = useAdmin()
+const isLogged = useUser()
+
+async function onLoginClick() {
   const toast = useToast()
   try {
-    await authStore.login(email.value, password.value)
-    if (authStore.isAuthenticated) {
-      error.value = {
-        message: null,
-        inputs: {},
-      }
-      toast.success('Login Successful')
-      return navigateTo('/user')
+    await login(email.value, password.value)
+    toast.success('Login Successful')
+    error.value = {
+      message: null,
+      inputs: {},
     }
   } catch (e: any) {
     error.value = {
-      message: e.response._data.message ?? null,
-      inputs: e.response._data.errors ?? {},
+      message: e.response._data.data.message ?? null,
+      inputs: e.response._data.data.errors ?? {},
     }
     toast.error(
-      e.response._data.message === undefined
+      e.response._data.data.message === undefined
         ? e.message
-        : e.response._data.message,
+        : e.response._data.data.message,
     )
   }
 }
@@ -55,15 +55,6 @@ const signInWithProvider = (providerName: string) => {
     challenge,
   )
 }
-
-const user = computed(() => {
-  return {
-    isLoggedIn: authStore.isLoggedIn,
-    isAdmin: authStore.isAdmin,
-    email: authStore.user.email,
-    id: authStore.user.id,
-  }
-})
 
 function hasError(fieldName: string) {
   return !!(error.value && error.value.inputs && error.value.inputs[fieldName])
@@ -92,24 +83,29 @@ function hasError(fieldName: string) {
             <p
               class="text-xl md:pr-16"
               :class="{
-                'text-green-600': user.isLoggedIn,
-                'text-red-600': !user.isLoggedIn,
+                'text-green-600': isLogged,
+                'text-red-600': !isLogged,
               }"
             >
-              Is Logged: {{ user.isLoggedIn ? 'true' : 'false' }}
+              Is Logged: {{ isLogged ? 'true' : 'false' }}
             </p>
             <p
               class="text-xl md:pr-16"
               :class="{
-                'text-green-600': user.isLoggedIn,
-                'text-red-600': !user.isLoggedIn,
+                'text-green-600': isLogged,
+                'text-red-600': !isLogged,
               }"
             >
-              Is Admin: {{ user.isAdmin ? 'true' : 'false' }}
+              Is Admin: {{ isAdmin ? 'true' : 'false' }}
             </p>
-            <p class="text-xl text-gray-600 md:pr-16">User ID: {{ user.id }}</p>
             <p class="text-xl text-gray-600 md:pr-16">
-              User email: {{ user.email }}
+              User data: {{ loggedUser }}
+            </p>
+            <p class="text-xl text-gray-600 md:pr-16">
+              User ID: {{ loggedUser.id }}
+            </p>
+            <p class="text-xl text-gray-600 md:pr-16">
+              User email: {{ loggedUser.email }}
             </p>
             <h3
               class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl"
@@ -151,7 +147,7 @@ function hasError(fieldName: string) {
                   />
                 </div>
               </div>
-              <form @submit.prevent="login">
+              <form @submit.prevent="onLoginClick">
                 <div class="pb-4">
                   <input
                     id="email"
@@ -203,10 +199,10 @@ function hasError(fieldName: string) {
 
                 <div class="block">
                   <button
-                    :disabled="user.isLoggedIn"
+                    :disabled="isLogged"
                     type="submit"
-                    class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg"
-                    :class="{ 'bg-gray-200': user.isLoggedIn }"
+                    class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg cursor-pointer"
+                    :class="{ 'bg-gray-200': isLogged }"
                   >
                     {{ $t('auth.logMeIn') }}
                   </button>

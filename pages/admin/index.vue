@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 definePageMeta({
   middleware: ['is-admin'],
 })

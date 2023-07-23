@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { MoonIcon, SunIcon } from '@heroicons/vue/24/outline'
 import { useToast } from 'vue-toastification'
-import { useAuthStore } from '~/store/user'
 
 const isDark = ref<boolean>(false)
-const authStore = useAuthStore()
+const currentUser = useAuthUser()
 const localePath = useLocalePath()
 const { locale, setLocale } = useI18n()
 
@@ -21,17 +20,12 @@ const onChangeLocale = async (locale: string) => {
   await setLocale(locale)
 }
 
-const isAuthenticated = computed(() => {
-  return authStore.isLoggedIn
-})
-
-const logout = async () => {
+const { logout } = useAuth()
+const onLogoutClick = async () => {
   const toast = useToast()
   try {
-    await authStore.logout()
-    if (!authStore.isAuthenticated) {
-      toast.success('Logout Successful')
-    }
+    await logout()
+    toast.success('Logout Successful')
   } catch (e: any) {
     toast.error(
       e.response._data.message === undefined
@@ -135,7 +129,7 @@ const logout = async () => {
             </div>
             <div class="min-h-12">
               <nuxt-link
-                v-if="!isAuthenticated"
+                v-if="!currentUser"
                 :to="localePath('/auth/login')"
                 class="w-full pl-6 mr-0 text-indigo-200 hover:text-white md:pl-0 md:mr-3 lg:mr-5 md:w-auto"
                 data-primary="indigo-600"
@@ -144,16 +138,16 @@ const logout = async () => {
               </nuxt-link>
 
               <nuxt-link
-                v-if="!isAuthenticated"
+                v-if="!currentUser"
                 :to="localePath('/auth/register')"
                 class="inline-flex items-center justify-center px-4 py-2 mr-1 text-base font-medium leading-6 text-indigo-600 whitespace-no-wrap transition duration-150 ease-in-out bg-white border border-transparent rounded-full hover:bg-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
               >
                 {{ $t('global.signUp') }}
               </nuxt-link>
               <button
-                v-if="isAuthenticated"
+                v-if="currentUser"
                 class="inline-flex items-center justify-center px-4 py-2 mr-1 text-base font-medium leading-6 text-indigo-600 whitespace-no-wrap transition duration-150 ease-in-out bg-white border border-transparent rounded-full hover:bg-white focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
-                @click="logout"
+                @click="onLogoutClick"
               >
                 {{ $t('global.logout') }}
               </button>

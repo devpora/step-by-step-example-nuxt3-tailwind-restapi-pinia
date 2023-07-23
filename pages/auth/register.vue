@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useAuthStore } from '~/store/user'
+import { useToast } from 'vue-toastification'
+
 definePageMeta({
   middleware: ['is-guest'],
 })
@@ -12,37 +13,36 @@ const error = ref<{ message: null; inputs: Record<string, string[]> }>({
   message: null,
   inputs: {},
 })
-const authStore = useAuthStore()
 
-const register = async () => {
+const { register } = useAuth()
+const loggedUser = useAuthUser()
+const isAdmin = useAdmin()
+async function sendRegister() {
+  const toast = useToast()
   try {
-    await authStore.register(
+    await register(
       name.value,
       email.value,
       password.value,
       passwordConfirmation.value,
     )
-    if (authStore.isAuthenticated) {
-      error.value = {
-        message: null,
-        inputs: {},
-      }
+    toast.success('Register Successful')
+    error.value = {
+      message: null,
+      inputs: {},
     }
   } catch (e: any) {
     error.value = {
-      message: e.response._data.message ?? null,
-      inputs: e.response._data.errors ?? {},
+      message: e.response._data.data.message ?? null,
+      inputs: e.response._data.data.errors ?? {},
     }
+    toast.error(
+      e.response._data.data.message === undefined
+        ? e.message
+        : e.response._data.data.message,
+    )
   }
 }
-
-const user = computed(() => {
-  return {
-    isLoggedIn: authStore.isLoggedIn,
-    email: authStore.user.email,
-    id: authStore.user.id,
-  }
-})
 
 function hasError(fieldName: string) {
   return !!(error.value && error.value.inputs && error.value.inputs[fieldName])
@@ -73,17 +73,29 @@ function hasError(fieldName: string) {
                 <p
                   class="text-xl md:pr-16"
                   :class="{
-                    'text-green-600': user.isLoggedIn,
-                    'text-red-600': !user.isLoggedIn,
+                    'text-green-600': loggedUser,
+                    'text-red-600': !loggedUser,
                   }"
                 >
-                  Is Logged: {{ user.isLoggedIn ? 'true' : 'false' }}
+                  Is Logged: {{ loggedUser ? 'true' : 'false' }}
+                </p>
+                <p
+                  class="text-xl md:pr-16"
+                  :class="{
+                    'text-green-600': loggedUser,
+                    'text-red-600': !loggedUser,
+                  }"
+                >
+                  Is Admin: {{ isAdmin ? 'true' : 'false' }}
                 </p>
                 <p class="text-xl text-gray-600 md:pr-16">
-                  User ID: {{ user.id }}
+                  User data: {{ loggedUser }}
                 </p>
                 <p class="text-xl text-gray-600 md:pr-16">
-                  User email: {{ user.email }}
+                  User ID: {{ loggedUser.id }}
+                </p>
+                <p class="text-xl text-gray-600 md:pr-16">
+                  User email: {{ loggedUser.email }}
                 </p>
                 <h3
                   class="text-2xl font-extrabold leading-none text-black sm:text-3xl md:text-5xl"
@@ -115,7 +127,7 @@ function hasError(fieldName: string) {
                 </nuxt-link>
               </p>
               <div class="relative w-full mt-10 space-y-8">
-                <form @submit.prevent="register">
+                <form @submit.prevent="sendRegister">
                   <div class="pb-4">
                     <input
                       id="name"
@@ -214,10 +226,9 @@ function hasError(fieldName: string) {
                   </div>
                   <div class="block">
                     <button
-                      :disabled="user.isLoggedIn"
                       type="submit"
                       class="w-full px-3 py-4 font-medium text-white bg-blue-600 rounded-lg"
-                      :class="{ 'bg-gray-200': user.isLoggedIn }"
+                      :class="{ 'bg-gray-200': loggedUser }"
                     >
                       {{ $t('auth.createAccount') }}
                     </button>

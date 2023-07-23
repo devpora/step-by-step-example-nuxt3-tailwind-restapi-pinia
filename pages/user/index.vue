@@ -1,16 +1,8 @@
 <script setup lang="ts">
-import { useAuthStore } from '~/store/user'
+const loggedUser = useAuthUser()
+
 definePageMeta({
   middleware: ['is-user'],
-})
-
-const authStore = useAuthStore()
-const user = computed(() => {
-  return {
-    isLoggedIn: authStore.isLoggedIn,
-    email: authStore.user.email,
-    id: authStore.user.id,
-  }
 })
 </script>
 <template>
@@ -18,11 +10,12 @@ const user = computed(() => {
     <div class="flex flex-col items-center justify-center h-screen">
       <h1 class="text-3xl font-extralight text-yellow-500 mb-4">Logged?</h1>
       <h2 class="text-3xl font-light text-red-600 mb-4">
-        {{ user.isLoggedIn ? 'true' : 'false' }}
+        {{ loggedUser ? 'true' : 'false' }}
       </h2>
       <h3 class="text-3xl font-bold underline text-green-400 mb-4">Email</h3>
       <h4 class="text-3xl font-extrabold underline text-gray-500 mb-4">
-        {{ user.email }}
+        loggedUser: {{ loggedUser }}<br />
+        loggedUser.email: {{ loggedUser.email }}<br />
       </h4>
     </div>
   </NuxtLayout>

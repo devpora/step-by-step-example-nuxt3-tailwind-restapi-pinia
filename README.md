@@ -11,6 +11,7 @@ All data is in separate branches
 - 🌍 i18n
 - 🌜 dark/light
 - 🌐 login and register from external Rest API + oAuth Google, GitHub and GitLab
+- 🍪 cookie for permanent login
 - 🔑 middleware is-admin, is-user and is-guest
 - 🔧 eslint, prettier
 - 🔒 local ssl
@@ -28,6 +29,7 @@ Všetky dáta sú v samostatných vetvách
 - 🌍 i18n
 - 🌜 dark/light
 - 🌐 prihlásenie a registrácia cez externé Rest API + oAuth Google, GitHub a GitLab
+- 🍪 cookie pre permanentné prihlásenie
 - 🔑 middleware is-admin, is-user a is-guest
 - 🔧 eslint, prettier
 - 🔒 lokálne ssl
@@ -66,11 +68,11 @@ yarn preview # - locally preview production build
 
 ## Changes
 
-- Added notifications for login/logout
-- Added /notify page
+Added cookie to save information about logged user
 
 ## Release notes
 
+- v016 - cookie
 - v015 - notification
 - v014 - oAuth
 - v013 - fontawesome
@@ -132,11 +134,11 @@ yarn preview # - lokálny náhľad zostavenej aplikácie
 
 ## Zmeny
 
-- Pridané notifikácie pri prihláseni/odhlásení
-- Pridaná stránka /notify
+- Pridané cookie na uloženie informácie o prihlásenom používateľovi
 
 ## Poznámky k vydaniu
 
+- v016 - cookie
 - v015 - notifikácie
 - v014 - oAuth
 - v013 - fontawesome
